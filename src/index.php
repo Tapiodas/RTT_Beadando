@@ -59,6 +59,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn->query($deleteQuery);
     }
 }
+
+$allowedDirectories = ['images'];
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+if (in_array(ltrim(dirname($requestUri), '/'), $allowedDirectories)) {
+    return false; 
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -152,8 +160,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </tbody>
         </table>
     </div>
-
-
+    <img src="/images/kep.jpg" alt="My Image">
+    <img src="/images/kep1.jpg" alt="My Image">
+    <img src="/images/kep2.jpg" alt="My Image">
+    <img src="/images/kep3.jpg" alt="My Image">
+    <img src="/images/kep4.jpg" alt="My Image">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
