@@ -1,0 +1,31 @@
+version: "2"
+services:
+  php:
+    container_name: php
+    build: php
+    ports:
+      - "8080:8080"
+    command: "php -S 0.0.0.0:8080 -t /var/www/html"
+    volumes:
+      - type: bind
+        source: src
+        target: /var/www/html
+
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:  
+      - type: bind
+        source: mysql
+        target: /var/lib/mysql
+    environment:
+      MYSQL_USER: rtt-database
+      MYSQL_PASSWORD: rtt-database
+      MYSQL_DATABASE: rtt-database
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_ROOT_HOST: "0.0.0.0/0"
+
+volumes:
+  src:
